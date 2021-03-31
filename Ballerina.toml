@@ -1,6 +1,6 @@
 [package]
 org = "sachinira"
-name = "template_gsheet_updaterow_to_gmail"
+name = "template_gsheet_update_row_to_gmail"
 version = "0.1.0"
 
 [build-options]
@@ -10,6 +10,11 @@ observabilityIncluded = true
 org = "ballerinax"
 name = "googleapis_sheets"
 version = "0.99.7"
+
+[[dependency]]
+org = "ballerinax"
+name = "googleapis_drive"
+version = "0.1.0"
 
 [[dependency]]
 org = "ballerinax"

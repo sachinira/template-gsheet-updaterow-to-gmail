@@ -26,6 +26,10 @@ configurable string & readonly workSheetName = ?;
 
 // Gmail client configuration
 configurable http:OAuth2DirectTokenConfig & readonly gmailOauthConfig = ?;
+configurable string & readonly cc = ?;
+configurable string & readonly subject = ?;
+configurable string & readonly messageBody = ?;
+configurable string & readonly contentType = ?;
 
 // Initialize Google Drive client 
 drive:Configuration driveClientConfiguration = {
@@ -50,7 +54,7 @@ sheetsListener:SheetListenerConfiguration congifuration = {
     eventService: new EventTrigger()
 };
 
-//  Create Gmail client.
+// Create Gmail client.
 gmail:Client gmailClient = new (gmailClientConfiguration);
 
 // Create Google Sheets client.
@@ -80,10 +84,10 @@ service / on gSheetListener {
                     gmail:MessageRequest messageRequest = {};
                     messageRequest.recipient = emailAddress.toString();
                     messageRequest.sender = "me";
-                    messageRequest.subject = "Bonus Notification";
-                    messageRequest.messageBody = 
-                        string `Your Bonus have been added. The amount for this month is Rs ${updatedData[0][0].toString()}`;
-                    messageRequest.contentType = gmail:TEXT_PLAIN;
+                    messageRequest.subject = subject;
+                    messageRequest.cc = cc;
+                    messageRequest.messageBody = messageBody + updatedData[0][0].toString();
+                    messageRequest.contentType = contentType;
 
                     [string, string]|error sendMessageResponse = checkpanic gmailClient->sendMessage("me", 
                         messageRequest);

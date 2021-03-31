@@ -9,3 +9,6 @@ modules
 
 # Target folder
 /target
+
+# Idea file
+.idea
